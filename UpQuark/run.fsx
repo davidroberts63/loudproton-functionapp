@@ -24,7 +24,7 @@ let Run(req: HttpRequestMessage, inTable: IQueryable<Quark>, log: TraceWriter) =
             select dict [ 
                 title => quark.Title
                 speaker => quark.Speaker
-                abstract =>quark.Abstract 
+                "abstract" => quark.Abstract 
             ]
         }
         |> JsonConvert.SerializeObject
