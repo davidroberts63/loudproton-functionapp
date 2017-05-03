@@ -12,9 +12,6 @@ type Quark() =
     member val Speaker: string = null with get, set
     member val Abstract: string = null with get, set
 
-let GetSchedule =
-    "{message:\"Hello\""
-
 let Run(req: HttpRequestMessage, inTable: IQueryable<Quark>, log: TraceWriter) =
     log.Info("GETting conference schedule")
     req.CreateResponse(HttpStatusCode.OK, "{message:\"Hello\"}")
