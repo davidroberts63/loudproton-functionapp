@@ -18,7 +18,8 @@ let XRun(req: HttpRequestMessage, inTable: IQueryable<Quark>, log: TraceWriter) 
     req.CreateResponse(HttpStatusCode.OK, "{message:\"Hello\"}")
 
 let Run(req: HttpRequestMessage, inTable: IQueryable<Quark>, log: TraceWriter) =
-    let sessions = query {
+    let sessions = 
+        query {
             for quark in inTable do
             select quark
         }
