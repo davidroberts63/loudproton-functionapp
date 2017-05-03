@@ -6,21 +6,26 @@ open System.Net
 open System.Net.Http
 open Microsoft.WindowsAzure.Storage.Table
 
-type Person() =
+type Quark() =
     inherit TableEntity()
-    member val Name: string = null with get, set
+    member val Title: string = null with get, set
+    member val Speaker: string = null with get, set
+    member val Abstract: string = null with get, set
 
-let Run(req: HttpRequestMessage, log: TraceWriter) =
+let GetSchedule =
+    "{message:\"Hello\""
+
+let Run(req: HttpRequestMessage, inTable: IQueryable<Quark>, log: TraceWriter) =
     log.Info("GETting conference schedule")
     req.CreateResponse(HttpStatusCode.OK, "{message:\"Hello\"}")
 
-let XRun(req: HttpRequestMessage, inTable: IQueryable<Person>, log: TraceWriter) =
+let XRun(req: HttpRequestMessage, inTable: IQueryable<Quark>, log: TraceWriter) =
     let people =
         query {
             for person in inTable do
             select person
         }
-        |> Seq.map (fun person -> sprintf "\"Name\": \"%s\"" person.Name)
+        |> Seq.map (fun person -> sprintf "\"Name\": \"%s\"" person.Title)
         |> String.concat ","
 
     req.CreateResponse(HttpStatusCode.OK, sprintf "{%s}" people)

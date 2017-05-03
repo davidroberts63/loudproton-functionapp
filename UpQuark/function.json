@@ -12,6 +12,13 @@
             "type": "http",
             "direction": "out",
             "name": "res"
+        },
+        {
+            "type": "table",
+            "name": "inTable",
+            "tableName": "quarks",
+            "connection": "",
+            "direction": "in"
         }
     ],
     "disabled": false
