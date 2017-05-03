@@ -1,5 +1,6 @@
 ﻿#r "System.Net.Http"
 #r "Microsoft.WindowsAzure.Storage"
+#r "Newtonsoft.Json.dll"
 
 open System.Linq
 open System.Net
@@ -13,30 +14,14 @@ type Quark() =
     member val Speaker: string = null with get, set
     member val Abstract: string = null with get, set
 
-let XRun(req: HttpRequestMessage, inTable: IQueryable<Quark>, log: TraceWriter) =
-    log.Info("GETting conference schedule")
-    req.CreateResponse(HttpStatusCode.OK, "{message:\"GoodBye\"}")
+type QuarkModel = {title: string; speaker: string; description: string}
 
 let Run(req: HttpRequestMessage, inTable: IQueryable<Quark>, log: TraceWriter) =
+    log.Info("GETting sessions")
     let sessions = 
         query {
             for quark in inTable do
-            select dict [ 
-                title => quark.Title
-                speaker => quark.Speaker
-                "abstract" => quark.Abstract 
-            ]
+            select {title = quark.Title; speaker = quark.Speaker; description = quark.Abstract}
         }
         |> JsonConvert.SerializeObject
     req.CreateResponse(HttpStatusCode.OK, sessions)
-    (*
-    let people =
-        query {
-            for person in inTable do
-            select person
-        }
-        |> Seq.map (fun person -> sprintf "\"Name\": \"%s\"" person.Title)
-        |> String.concat ","
-
-    req.CreateResponse(HttpStatusCode.OK, sprintf "{%s}" people)
-    *)
