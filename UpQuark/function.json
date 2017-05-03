@@ -16,8 +16,8 @@
         {
             "type": "table",
             "name": "inTable",
-            "tableName": "quarks",
-            "connection": "",
+            "tableName": "Quarks",
+            "connection": "AzureWebJobsStorage",
             "direction": "in"
         }
     ],
