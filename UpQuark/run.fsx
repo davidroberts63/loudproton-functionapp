@@ -15,13 +15,17 @@ type Quark() =
 
 let XRun(req: HttpRequestMessage, inTable: IQueryable<Quark>, log: TraceWriter) =
     log.Info("GETting conference schedule")
-    req.CreateResponse(HttpStatusCode.OK, "{message:\"Hello\"}")
+    req.CreateResponse(HttpStatusCode.OK, "{message:\"GoodBye\"}")
 
 let Run(req: HttpRequestMessage, inTable: IQueryable<Quark>, log: TraceWriter) =
     let sessions = 
         query {
             for quark in inTable do
-            select (quark.Title, quark.Speaker, quark.Abstract)
+            select dict [ 
+                title => quark.Title
+                speaker => quark.Speaker
+                abstract =>quark.Abstract 
+            ]
         }
         |> JsonConvert.SerializeObject
     req.CreateResponse(HttpStatusCode.OK, sessions)
