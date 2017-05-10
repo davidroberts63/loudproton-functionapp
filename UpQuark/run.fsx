@@ -12,7 +12,7 @@ type Quark() =
     inherit TableEntity()
     member val Title: string = null with get, set
     member val Speaker: string = null with get, set
-    member val Abstract: string = null with get, set
+    member val Description: string = null with get, set
 
 type QuarkModel = {title: string; speaker: string; description: string}
 
