@@ -21,7 +21,7 @@ let Run(req: HttpRequestMessage, inTable: IQueryable<Quark>, log: TraceWriter) =
     let sessions = 
         query {
             for quark in inTable do
-            select {title = quark.Title; speaker = quark.Speaker; description = quark.Abstract}
+            select {title = quark.Title; speaker = quark.Speaker; description = quark.Description}
         }
         |> JsonConvert.SerializeObject
     req.CreateResponse(HttpStatusCode.OK, sessions)
