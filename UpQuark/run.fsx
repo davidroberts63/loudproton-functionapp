@@ -13,15 +13,27 @@ type Quark() =
     member val Title: string = null with get, set
     member val Speaker: string = null with get, set
     member val Description: string = null with get, set
+    member val StartTime: datetime = null with get, set
+    member val Endtime: datetime = null with get, set
+    member val Room: string = null with get, set
+    member val Tags: string = null with get, set
 
-type QuarkModel = {title: string; speaker: string; description: string}
+type QuarkModel = {title: string; speaker: string; description: string; startTime: datetime; endTime: datetime; room: string; tags: string}
 
 let Run(req: HttpRequestMessage, inTable: IQueryable<Quark>, log: TraceWriter) =
     log.Info("GETting sessions")
     let sessions = 
         query {
             for quark in inTable do
-            select {title = quark.Title; speaker = quark.Speaker; description = quark.Description}
+            select {
+                title = quark.Title; 
+                speaker = quark.Speaker;
+                description = quark.Description;
+                startTime = quark.StartTime;
+                endTime = quark.EndTime;
+                room = quark.Room;
+                tags = quark.Tags
+            }
         }
         |> JsonConvert.SerializeObject
     req.CreateResponse(HttpStatusCode.OK, sessions)
