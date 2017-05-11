@@ -14,8 +14,8 @@ type Quark() =
     member val Title: string = null with get, set
     member val Speaker: string = null with get, set
     member val Description: string = null with get, set
-    member val StartTime: DateTime = null with get, set
-    member val Endtime: DateTime = null with get, set
+    member val StartTime: Nullable<DateTime> = null with get, set
+    member val Endtime: Nullable<DateTime> = null with get, set
     member val Room: string = null with get, set
     member val Tags: string = null with get, set
 
