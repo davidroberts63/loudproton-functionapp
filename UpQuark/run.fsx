@@ -2,6 +2,7 @@
 #r "Microsoft.WindowsAzure.Storage"
 #r "Newtonsoft.Json.dll"
 
+open System
 open System.Linq
 open System.Net
 open System.Net.Http
@@ -13,12 +14,12 @@ type Quark() =
     member val Title: string = null with get, set
     member val Speaker: string = null with get, set
     member val Description: string = null with get, set
-    member val StartTime: datetime = null with get, set
-    member val Endtime: datetime = null with get, set
+    member val StartTime: DateTime = null with get, set
+    member val Endtime: DateTime = null with get, set
     member val Room: string = null with get, set
     member val Tags: string = null with get, set
 
-type QuarkModel = {title: string; speaker: string; description: string; startTime: datetime; endTime: datetime; room: string; tags: string}
+type QuarkModel = {title: string; speaker: string; description: string; startTime: DateTime; endTime: DateTime; room: string; tags: string}
 
 let Run(req: HttpRequestMessage, inTable: IQueryable<Quark>, log: TraceWriter) =
     log.Info("GETting sessions")
